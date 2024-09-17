@@ -44,26 +44,26 @@ Authorization: ApiKey $API_KEY
 
 **Path Parameters**
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `accountId` | String | ID of your account on the Illuminate Platform |
-| `cpmPath` | String | The encrypted payload from the watermark, passed from the Digimarc Mobile SDK |
+| Name | Type | Required? | Description |
+|------|------|-----------|-------------|
+| `accountId` | String | yes | ID of your account on the Illuminate Platform |
+| `cpmPath` | String | yes | The encrypted payload from the watermark, passed from the Digimarc Mobile SDK |
 
 **Query Parameters**
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `fields` | String | A comma-separated list of the metadata you want to receive |
+| Name | Type | Required? | Description |
+|------|------|-----------|-------------|
+| `fields` | String | yes | A comma-separated list of the metadata you want to receive |
 
 Using the `fields` parameter, you can retrieve the following metadata from the 
 Digimarc Mobile REST API:
 
-| Field | Description |
-|-------|-------------|
-| `redirectUrl` | The redirect URL for the digital watermark (for Engage Premium subscribers) |
-| `digitalTwinId` | The ID of the digital twin associated with the watermark (for Engage Premium subscribers) |
-| `dataCarrierId` | The ID of the digital watermark (for Engage Premium subscribers) |
-| `attribute` | Use this keyword followed by a colon (:) and specify the attribute name whose value you want |
+| Name | Type | Required? | Description |
+|------|------|-----------|-------------|
+| `redirectUrl` | String | no | The redirect URL for the digital watermark (for Engage Premium subscribers) |
+| `digitalTwinId` | String | no | The ID of the digital twin associated with the watermark (for Engage Premium subscribers) |
+| `dataCarrierId` | String | no | The ID of the digital watermark (for Engage Premium subscribers) |
+| `attribute` | String | no | Use this keyword followed by a colon (:) and specify the attribute name whose value you want |
 
 > The redirectUrl is similar to a QR code's Short URL or GS1 Digital Link, 
 but it's specific to digital watermarks in an Engage Premium account. If the
