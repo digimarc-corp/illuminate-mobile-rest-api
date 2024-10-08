@@ -46,24 +46,24 @@ Authorization: ApiKey $API_KEY
 
 | Name | Type | Required? | Description |
 |------|------|-----------|-------------|
-| `accountId` | String | yes | ID of your account on the Illuminate Platform |
-| `cpmPath` | String | yes | The encrypted payload from the watermark, passed from the Digimarc Mobile SDK |
+| `accountId` | String | yes | ID of your account on the Illuminate Platform. |
+| `cpmPath` | String | yes | The encrypted payload from the watermark, passed from the Digimarc Mobile SDK. |
 
 **Query Parameters**
 
 | Name | Type | Required? | Description |
 |------|------|-----------|-------------|
-| `fields` | String | yes | A comma-separated list of the metadata you want to receive |
+| `fields` | String | yes | A comma-separated list of the metadata you want to receive. |
 
 Using the `fields` parameter, you can retrieve the following metadata from the 
 Digimarc Mobile REST API:
 
 | Name | Type | Required? | Description |
 |------|------|-----------|-------------|
-| `redirectUrl` | String | no | The redirect URL for the digital watermark (for Engage Premium subscribers) |
-| `digitalTwinId` | String | no | The ID of the digital twin associated with the watermark (for Engage Premium subscribers) |
-| `dataCarrierId` | String | no | The ID of the digital watermark (for Engage Premium subscribers) |
-| `attribute` | String | no | Use this keyword followed by a colon (:) and specify the attribute name whose value you want |
+| `redirectUrl` | String | no | The redirect URL for the digital watermark (for Engage Premium subscribers). |
+| `digitalTwinId` | String | no | The ID of the digital twin associated with the watermark (for Engage Premium subscribers). |
+| `dataCarrierId` | String | no | The ID of the digital watermark (for Engage Premium subscribers). |
+| `attribute` | String | no | Use this keyword followed by a colon (:) and specify the attribute name whose value you want. |
 
 > The redirectUrl is similar to a QR code's Short URL or GS1 Digital Link, 
 but it's specific to digital watermarks in an Engage Premium account. If the
@@ -71,6 +71,26 @@ digital twin has an engagement behavior, Engage Premium forwards the consumer
 who scanned the watermark to the appropriate destination URL for the engagement. 
 If the digital twin has no engagement behavior, the consumer might see a 
 4xx HTTP error.
+
+#### Metadata for Serialized Watermarks
+
+You can also call the `GET /metadata/` endpoint to return metadata for 
+serialized watermarks, but the `fields` in the request are different:
+
+| Name | Type | Required? | Description |
+|------|------|-----------|-------------|
+| `redirectUrl` | String | no | The redirect URL for the digital watermark (for Engage Premium subscribers). |
+| `attribute` | String | no | Use this keyword followed by a colon (:) and specify the attribute name whose value you want. |
+| `serial` | String | no | The serial value. |
+| `serialId` | String | no | ID of the serial.|
+| `serialDataCarrierId` | String | no | ID of the serial data carrier. |
+
+The serial* parameters are used only when the `cpmPath` contains an 
+identifier for a serialized watermark. If the `cpmPath` is for a non-serialized 
+watermark, the `isSerial` parameter in the output is `false`.
+
+For information about creating serialized watermarks, see the Illuminate 
+Account Administrator's Guide.
 
 ## Examples
 
@@ -84,6 +104,7 @@ watermarked image.
 * [Get the Watermark ID](#get-the-watermark-id)
 * [Get the Custom Attribute Data](#get-the-custom-attribute-data)
 * [Get All Metadata](#get-all-metadata)
+* [Get Serial Metadata](#get-serial-metadata)
 
 ### Get the Digital Twin ID
 
@@ -134,6 +155,17 @@ the redirectUrl, dataCarrierId, or digitalTwinId fields.
 ```shell
 curl -H "Authorization: ApiKey $API_KEY" \
   -X GET '$API_URL/metadata/$ACCOUNTID/$CPM_PATH?fields=redirectUrl,dataCarrierId,digitalTwinId,attribute:attr1,attribute:attr2'
+```
+
+### Get Serial Metadata
+
+This example gets all metadata from a serialized watermark, including custom 
+attribute data. It's specific to Engage Premium; protected images don't have 
+the redirectUrl field.
+
+```shell
+curl -H "Authorization: ApiKey $API_KEY" \
+  -X GET '$API_URL/metadata/$ACCOUNTID/$CPM_PATH?fields=redirectUrl,serial,serialId,serialDataCarrierId,attribute:attr1,attribute:attr2'
 ```
 
 ## Help
