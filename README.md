@@ -1,7 +1,7 @@
-# Digimarc Illuminate&trade; Mobile REST API
+# Illuminate&trade; Mobile REST API
 
 The illuminate-mobile-rest-api repository contains information and examples 
-for using the Digimarc Illuminate&trade; Mobile REST API to read metadata for a digital twin
+for using the Illuminate&trade; Mobile REST API to read metadata for a digital twin
 or protected image on the Illuminate Platform.
 
 The metadata is specific to digital watermarks; digital twins created in an
